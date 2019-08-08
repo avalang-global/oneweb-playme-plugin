@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin id="com.oneweb.playme.plugin" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>oneweb-playme-plugin</name>
+    <description>PlayMe plugin</description>
+    <js-module name="Playme" src="www/oneweb-playme-plugin.js">
+        <clobbers target="Playme" />
+    </js-module>
+    <dependency id="kunder-cordova-plugin-webview" url="https://github.com/kunder-lab/cl.kunder.webview.git" />
+</plugin>
