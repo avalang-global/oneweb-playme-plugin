@@ -5,5 +5,5 @@
     <js-module name="Playme" src="www/oneweb-playme-plugin.js">
         <clobbers target="Playme" />
     </js-module>
-    <dependency id="kunder-cordova-plugin-webview" url="https://github.com/kunder-lab/cl.kunder.webview.git" />
+    <dependency id="kunder-cordova-plugin-webview" url="git+https://github.com/kunder-lab/cl.kunder.webview.git" />
 </plugin>
