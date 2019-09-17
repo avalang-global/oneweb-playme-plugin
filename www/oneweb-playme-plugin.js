@@ -36,6 +36,7 @@ function touchExitApp() {
         var deltaY3 = e.changedTouches[2].screenY - toucstartY3;
         var deltaY4 = e.changedTouches[3].screenY - toucstartY4;
         if (deltaY1 > 250 && deltaY2 > 250 && deltaY3 > 250 && deltaY4 > 250) {
+          console.log("window.__PLAYME__", window.__PLAYME__);
           if (!window.__PLAYME__ && window.__PLAYME__ !== "playme") {
             console.log("ExitApp Success!");
             cordova.exec(
