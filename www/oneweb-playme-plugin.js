@@ -12,7 +12,7 @@ function touchExitApp() {
   document.addEventListener(
     "touchstart",
     function(e) {
-      if (e.touches.length == 3) {
+      if (e.touches.length == 4) {
         toucstartY1 = e.touches[0].screenY;
         toucstartY2 = e.touches[1].screenY;
         toucstartY3 = e.touches[2].screenY;
@@ -29,7 +29,7 @@ function touchExitApp() {
   document.addEventListener(
     "touchmove",
     function(e) {
-      console.log("touch move", e);
+      console.log("touch move2", e);
       if (e.changedTouches.length == 4) {
         var deltaY1 = e.changedTouches[0].screenY - toucstartY1;
         var deltaY2 = e.changedTouches[1].screenY - toucstartY2;
