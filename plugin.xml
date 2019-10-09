@@ -2,8 +2,57 @@
 <plugin id="oneweb-playme-plugin" version="0.0.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:amazon="http://schemas.android.com/apk/lib/com.amazon.device.ads" xmlns:rim="http://www.blackberry.com/ns/widgets">
     <name>oneweb-playme-plugin</name>
     <description>PlayMe plugin</description>
-    <js-module name="Playme" src="www/oneweb-playme-plugin.js">
-        <clobbers target="Playme" />
+    <keywords>cordova, webview</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <!-- Web View -->
+    <js-module src="www/playmePlugin.js" name="playme">
+        <merges target="playme" />
     </js-module>
-    <dependency id="kunder-cordova-plugin-webview" url="git+https://github.com/kunder-lab/cl.kunder.webview.git" />
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="WebViewPlugin" >
+            <param name="android-package" value="avalant.playme.webview.WebViewPlugin"/>
+        </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchMode="singleTop" android:name="avalant.playme.webview.WebViewActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize" android:exported="true">
+        </activity>
+        </config-file>
+
+        <source-file src="src/android/avalant/playme/webview/WebViewPlugin.java" target-dir="src/avalant/playme/webview" />
+        <source-file src="src/android/avalant/playme/webview/WebViewActivity.java" target-dir="src/avalant/playme/webview" />
+        <source-file src="src/android/avalant/playme/webview/SubscribeExitCallback.java" target-dir="src/avalant/playme/webview" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+        <feature name="WebViewPlugin">
+            <param name="ios-package" value="WebViewPlugin"/>
+        </feature>
+        </config-file>
+
+        <!-- WebView -->
+        <header-file src="src/ios/webview/WebViewPlugin.h" />
+        <source-file src="src/ios/webview/WebViewPlugin.m" />
+    </platform>
+
+    <!-- browser -->
+    <platform name="browser">
+        <config-file target="config.xml" parent="/*">
+            <feature name="WebViewPlugin">
+                <param name="browser-package" value="WebViewPluginProxy" />
+            </feature>
+        </config-file>
+
+        <js-module src="src/browser/WebViewPluginProxy.js" name="WebViewPluginProxy">
+            <runs />
+        </js-module>
+    </platform>
 </plugin>

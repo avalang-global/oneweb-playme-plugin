@@ -7,9 +7,6 @@
     "type": "git",
     "url": "git+https://github.com/avalantglobal/oneweb-playme-plugin.git"
   },
-  "dependencies": {
-    "kunder-cordova-plugin-webview": "git+https://github.com/kunder-lab/cl.kunder.webview.git"
-  },
   "author": "avalant oneweb team",
   "license": "MIT",
   "bugs": {
