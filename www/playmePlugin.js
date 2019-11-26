@@ -9,6 +9,9 @@ window.GET_PLAYME_TOKEN = function() {
         let idApp = "";
         if (splitPath[splitPath.length - 4] === "files") {
           idApp = splitPath[splitPath.length - 3];
+        }
+        if (splitPath[splitPath.length - 4] === "NoCloud") {
+          idApp = splitPath[splitPath.length - 3];
         } else {
           idApp =
             splitPath[splitPath.length - 3] +
