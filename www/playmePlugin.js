@@ -1,5 +1,71 @@
 var exec = require("cordova/exec");
 
+window.GET_PLAYME_TOKEN = function() {
+  return new Promise((resolve, reject) => {
+    if (!window.__PLAYME__ && window.__PLAYME__ !== "playme") {
+      let pathname = window.location.pathname;
+      let splitPath = pathname.split("/");
+      if (splitPath[splitPath.length - 1] === "index.html") {
+        let idApp = "";
+        if (splitPath[splitPath.length - 4] === "files") {
+          idApp = splitPath[splitPath.length - 3];
+        } else {
+          idApp =
+            splitPath[splitPath.length - 3] +
+            "/" +
+            splitPath[splitPath.length - 4];
+        }
+        selectDB("SELECT * FROM playme_token WHERE id_app = ?", [
+          splitPath[splitPath.length - 3]
+        ])
+          .then(async res => {
+            let result = {
+              id_app: res.item(0).id_app,
+              fcm_token: window.localStorage.device_token,
+              playme_token: res.item(0).playme_token
+            };
+            resolve(result);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      }
+    } else {
+    }
+  });
+};
+
+function selectDB(query, variables = []) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let database = window.sqlitePlugin.openDatabase({
+        name: "playme.db",
+        location: "default"
+      });
+      database.transaction(
+        tx => {
+          tx.executeSql(
+            query,
+            variables,
+            function(tx, rs) {
+              resolve(rs.rows);
+            },
+            function(tx, error) {
+              console.error(error);
+              reject(error);
+            }
+          );
+        },
+        function(error) {
+          console.error(error);
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
+
 module.exports = (function() {
   touchExitApp();
 })();
@@ -29,8 +95,6 @@ function touchExitApp() {
   document.addEventListener(
     "touchmove",
     function(e) {
-      // console.log("touch move2", e);
-      console.log("PLAYME", window.__PLAYME__);
       if (e.changedTouches.length == 4) {
         var deltaY1 = e.changedTouches[0].screenY - toucstartY1;
         var deltaY2 = e.changedTouches[1].screenY - toucstartY2;
@@ -111,7 +175,13 @@ module.exports = (function() {
   };
 
   var _exitApp = function() {
-    cordova.exec(function() {}, function() {}, "WebViewPlugin", "exitApp", []);
+    cordova.exec(
+      function() {},
+      function() {},
+      "WebViewPlugin",
+      "exitApp",
+      []
+    );
   };
 
   var _setWebViewBehavior = function() {
