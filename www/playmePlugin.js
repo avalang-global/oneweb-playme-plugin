@@ -124,15 +124,24 @@ function touchExitApp() {
 /*global cordova, module */
 ("use strict");
 module.exports = (function() {
-  var _show = function(url, successCallback, errorCallback, loading) {
+  var _show = function(
+    notificationData,
+    url,
+    successCallback,
+    errorCallback,
+    loading
+  ) {
     if (loading) {
       cordova.exec(successCallback, errorCallback, "WebViewPlugin", "show", [
         url,
-        loading
+        loading,
+        notificationData
       ]);
     } else {
       cordova.exec(successCallback, errorCallback, "WebViewPlugin", "show", [
-        url
+        url,
+        false,
+        notificationData
       ]);
     }
   };
