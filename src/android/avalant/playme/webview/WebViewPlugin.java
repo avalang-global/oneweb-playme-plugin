@@ -123,7 +123,17 @@ public class WebViewPlugin extends CordovaPlugin {
     LOG.d(LOG_TAG, "Url: " + url);
     Intent i = new Intent(this.cordova.getActivity(), WebViewActivity.class);
     i.putExtra("url", url);
-    i.putExtra("notiData", notiData);
+    try {
+      JSONObject jsonObject = new JSONObject(notiData);
+      i.putExtra("playmeToken", (String) jsonObject.get("playmeToken"));
+      i.putExtra("title", (String) jsonObject.get("title"));
+      i.putExtra("message", (String) jsonObject.get("message"));
+      i.putExtra("coldstart", (boolean) jsonObject.get("coldstart"));
+      i.putExtra("foreground", (boolean) jsonObject.get("foreground"));
+      i.putExtra("appId", (String) jsonObject.get("appId"));
+    } catch (JSONException err) {
+      LOG.e("JSONException", err.getMessage());
+    }
     i.putExtra("shouldShowLoading", shouldShowLoading);
     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     this.cordova.getActivity().getApplicationContext().startActivity(i);
