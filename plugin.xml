@@ -29,30 +29,4 @@
         <source-file src="src/android/avalant/playme/webview/WebViewActivity.java" target-dir="src/avalant/playme/webview" />
         <source-file src="src/android/avalant/playme/webview/SubscribeExitCallback.java" target-dir="src/avalant/playme/webview" />
     </platform>
-
-    <!-- ios -->
-    <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-        <feature name="WebViewPlugin">
-            <param name="ios-package" value="WebViewPlugin"/>
-        </feature>
-        </config-file>
-
-        <!-- WebView -->
-        <header-file src="src/ios/webview/WebViewPlugin.h" />
-        <source-file src="src/ios/webview/WebViewPlugin.m" />
-    </platform>
-
-    <!-- browser -->
-    <platform name="browser">
-        <config-file target="config.xml" parent="/*">
-            <feature name="WebViewPlugin">
-                <param name="browser-package" value="WebViewPluginProxy" />
-            </feature>
-        </config-file>
-
-        <js-module src="src/browser/WebViewPluginProxy.js" name="WebViewPluginProxy">
-            <runs />
-        </js-module>
-    </platform>
 </plugin>
