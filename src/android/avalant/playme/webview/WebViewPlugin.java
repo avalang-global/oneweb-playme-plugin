@@ -125,12 +125,11 @@ public class WebViewPlugin extends CordovaPlugin {
     i.putExtra("url", url);
     try {
       JSONObject jsonObject = new JSONObject(notiData);
-      i.putExtra("playmeToken", (String) jsonObject.get("playmeToken"));
-      i.putExtra("title", (String) jsonObject.get("title"));
-      i.putExtra("message", (String) jsonObject.get("message"));
-      i.putExtra("coldstart", (boolean) jsonObject.get("coldstart"));
-      i.putExtra("foreground", (boolean) jsonObject.get("foreground"));
-      i.putExtra("appId", (String) jsonObject.get("appId"));
+      Iterator<String> iter = jsonObject.keys();
+      while (iter.hasNext()) {
+        String key = iter.next();
+        i.putExtra(key, (String) jsonObject.get(key).toString());
+      }
     } catch (JSONException err) {
       LOG.e("JSONException", err.getMessage());
     }
