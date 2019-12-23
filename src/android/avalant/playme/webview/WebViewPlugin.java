@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.cordova.LOG;
 
+import java.util.Iterator;
+
 public class WebViewPlugin extends CordovaPlugin {
 
   private static final String LOG_TAG = "WebViewPlugin";
