@@ -9,18 +9,15 @@ window.GET_PLAYME_TOKEN = function() {
         let idApp = "";
         if (splitPath[splitPath.length - 4] === "files") {
           idApp = splitPath[splitPath.length - 3];
-        }
-        if (splitPath[splitPath.length - 4] === "NoCloud") {
+        } else if (splitPath[splitPath.length - 4] === "NoCloud") {
           idApp = splitPath[splitPath.length - 3];
-        } else {
+        } else if (splitPath[splitPath.length - 4] === "installed") {
           idApp =
             splitPath[splitPath.length - 3] +
             "/" +
             splitPath[splitPath.length - 4];
         }
-        selectDB("SELECT * FROM playme_token WHERE id_app = ?", [
-          splitPath[splitPath.length - 3]
-        ])
+        selectDB("SELECT * FROM playme_token WHERE id_app = ?", [idApp])
           .then(async res => {
             let result = {
               id_app: res.item(0).id_app,
