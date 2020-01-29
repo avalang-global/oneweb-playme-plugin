@@ -123,8 +123,9 @@ public class WebViewPlugin extends CordovaPlugin {
 
   private void showWebView(final String url, String notiData, Boolean shouldShowLoading) {
     LOG.d(LOG_TAG, "Url: " + url);
-    Intent i = new Intent(this.cordova.getActivity(), WebViewActivity.class);
-    i.putExtra("url", url);
+    WebViewActivity webViewActivity = new WebViewActivity();
+    Intent i = new Intent(this.cordova.getActivity(), webViewActivity.getClass());
+    webViewActivity.LINK_URL = url;
     try {
       JSONObject jsonObject = new JSONObject(notiData);
       Iterator<String> iter = jsonObject.keys();

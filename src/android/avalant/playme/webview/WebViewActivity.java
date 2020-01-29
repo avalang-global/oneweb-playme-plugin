@@ -19,6 +19,7 @@ import org.apache.cordova.LOG;
 public class WebViewActivity extends CordovaActivity {
     static Dialog dialog;
     static Activity activity2;
+    public static String LINK_URL = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class WebViewActivity extends CordovaActivity {
         // Aqui debo crear el loading
         activity2 = this;
         Bundle b = getIntent().getExtras();
-        String url = b.getString("url");
+        String url = LINK_URL;
         Boolean shouldShowLoading = false;
         try {
             shouldShowLoading = b.getBoolean("shouldShowLoading");
